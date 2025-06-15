@@ -1,0 +1,7 @@
+@import './app.css';
+
+.logo {
+    img {
+        width: 240px;
+    }
+}

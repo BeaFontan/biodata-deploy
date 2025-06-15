@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Kameron:wght@400;700&display=swap');
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+@import "flatpickr/dist/flatpickr.min.css";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-kameron: 'Kameron', sans-serif;
+
+    --breakpoint-2xsm: 375px;
+    --breakpoint-xsm: 425px;
+    --breakpoint-3xl: 2000px;
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+
+    --text-title-2xl: 72px;
+    --text-title-2xl--line-height: 90px;
+    --text-title-xl: 60px;
+    --text-title-xl--line-height: 72px;
+    --text-title-lg: 48px;
+    --text-title-lg--line-height: 60px;
+    --text-title-md: 36px;
+    --text-title-md--line-height: 44px;
+    --text-title-sm: 30px;
+    --text-title-sm--line-height: 38px;
+    --text-theme-xl: 20px;
+    --text-theme-xl--line-height: 30px;
+    --text-theme-sm: 14px;
+    --text-theme-sm--line-height: 20px;
+    --text-theme-xs: 12px;
+    --text-theme-xs--line-height: 18px;
+
+    --color-current: currentColor;
+    --color-transparent: transparent;
+
+    --color-green-dark: #142D10;
+    --color-graphite: #2C2E29;
+    --color-green-bright: #325f28;
+    --color-black-green: #051103;
+    --color-gray-soft: #E0E8E8;
+    --color-red-alert: #B40F0F;
+    --color-white: #FFFFFF;
+
+    --shadow-theme-md: 0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+    --shadow-theme-lg: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+    --shadow-theme-sm: 0px 1px 3px 0px rgba(16, 24, 40, 0.1), 0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+    --shadow-theme-xs: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+    --shadow-theme-xl: 0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+
+    --z-index-1: 1;
+    --z-index-9: 9;
+    --z-index-99: 99;
+    --z-index-999: 999;
+    --z-index-9999: 9999;
+    --z-index-99999: 99999;
+    --z-index-999999: 999999;
+}
+
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-soft);
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0 1000px var(--color-gray-soft) inset !important;
+        -webkit-text-fill-color: var(--color-green-dark) !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+
+    :is(.dark) input:-webkit-autofill,
+    :is(.dark) input:-webkit-autofill:hover,
+    :is(.dark) input:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0 1000px var(--color-graphite) inset !important;
+        -webkit-text-fill-color: var(--color-white) !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+
+    body {
+        @apply relative text-base font-normal font-kameron z-1;
+        background-color: var(--color-gray-soft);
+    }
+}
+
+@utility menu-item {
+    @apply relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-theme-sm;
+}
+
+@utility menu-item-active {
+    background-color: rgba(47, 128, 34, 0.1);
+    color: var(--color-green-bright);
+}
+
+@utility menu-item-inactive {
+    color: var(--color-graphite);
+}
+
+@utility menu-item-icon-active {
+    fill: var(--color-green-bright);
+}
+
+@utility menu-item-icon-inactive {
+    fill: var(--color-graphite);
+}
+
+@utility menu-item-arrow {
+    @apply absolute top-1/2 right-2.5 -translate-y-1/2;
+}
+
+@utility menu-item-arrow-active {
+    stroke: var(--color-green-bright);
+    transform: rotate(180deg);
+}
+
+@utility menu-item-arrow-inactive {
+    stroke: var(--color-graphite);
+}
+
+@utility menu-dropdown-item {
+    @apply text-theme-sm relative flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium;
+}
+
+@utility menu-dropdown-item-active {
+    background-color: rgba(47, 128, 34, 0.1);
+    color: var(--color-green-bright);
+}
+
+@utility menu-dropdown-item-inactive {
+    color: var(--color-graphite);
+}
+
+@utility menu-dropdown-badge {
+    color: var(--color-green-bright);
+    @apply block rounded-full px-2.5 py-0.5 text-xs font-medium uppercase;
+}
+
+@utility no-scrollbar {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@utility custom-scrollbar {
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: var(--color-gray-soft);
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: var(--color-graphite);
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: var(--color-black-green);
+    }
+}
+
+@layer components {
+    .sidebar {
+        @apply transition-all duration-300 ease-in-out z-[9999];
+    }
+
+    .menu-item-text {
+        @apply text-sm;
+    }
+
+    .dashboard-card {
+        background-color: var(--color-white);
+        @apply p-6 rounded-lg shadow-sm;
+    }
+
+    .navbar {
+        background-color: var(--color-white);
+        border-color: var(--color-gray-soft);
+    }
+
+    .user-dropdown {
+        background-color: var(--color-white);
+        @apply absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 ring-1 ring-black/5;
+    }
+
+    .user-dropdown-item {
+        color: var(--color-graphite);
+        @apply block px-4 py-2 text-sm hover:bg-gray-100;
+    }
+
+    .form-input {
+        background-color: var(--color-white);
+        color: var(--color-graphite);
+        border-color: var(--color-gray-soft);
+        @apply w-full rounded-md px-4 py-2 focus:outline-none;
+    }
+
+    .form-label {
+        color: var(--color-graphite);
+        @apply mb-2 block text-sm font-medium;
+    }
+
+    .btn {
+        @apply px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200;
+    }
+
+    .btn-primary {
+        background-color: var(--color-green-bright);
+        color: var(--color-white);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--color-green-dark);
+    }
+
+    .btn-secondary {
+        background-color: var(--color-green-bright);
+        color: var(--color-graphite);
+    }
+
+    .btn-secondary:hover {
+        background-color: var(--color-green-dark);
+        color: var(--color-white);
+    }
+
+    .text-theme-xs {
+        font-size: 0.75rem;
+        line-height: 1rem;
+    }
+
+    .text-theme-sm {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+
+    .text-red-alert {
+        color: var(--color-red-alert);
+    }
+
+    .is-invalid {
+        color: var(--color-red-alert);
+        font-size: 0.875rem;
+        margin-top: 0.50rem;
+        display: block;
+    }
+}
