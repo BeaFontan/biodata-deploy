@@ -6,11 +6,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return '🚀 Laravel en Railway está vivooooo!';
-});
-
-
 Route::get('/', fn() => redirect()->route('loginFront'))->name('home');
 Route::get('/login', fn() => view('auth/login'))->name('loginFront');
 Route::post('/login', [UserController::class, 'login'])->name('login');
