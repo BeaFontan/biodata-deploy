@@ -26,6 +26,6 @@ Route::middleware(['auth', 'role:scientist|admin'])->group(function () {
     Route::patch('/edicion-especie/{species}', [SpeciesController::class, 'editSpecie'])->name('species.edit');
     Route::delete('/eliminar-especie/{species}', [SpeciesController::class, 'destroy'])->name('species.destroy');
 
-    //SIGHTINGS
+    //SIGHTINGSs
     Route::resource('species.sightings', SightingController::class);
 });
