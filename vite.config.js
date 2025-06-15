@@ -3,7 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-    base: '/build/',
+    base: process.env.ASSET_URL ? new URL(process.env.ASSET_URL).pathname : '/build/',
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/css/auth.css', 'resources/js/app.js'],
