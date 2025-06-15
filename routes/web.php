@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return '🚀 Laravel en Railway está vivo!';
+    return '🚀 Laravel en Railway está vivooooo!';
 });
 
 
